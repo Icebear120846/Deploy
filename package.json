@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --repo https://github.com/Icebear120846/Deploy.git"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
