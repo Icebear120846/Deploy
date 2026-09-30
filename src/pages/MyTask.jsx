@@ -1,28 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { db } from "../components/db";
 
 export default function MyTask() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState("");
 
-  const addTask = () => {
+  useEffect(() => {
+    const loadTasks = async () => {
+      const savedTasks = await db.tasks.toArray();
+      setTasks(savedTasks);
+    };
+
+    loadTasks();
+  }, []);
+
+  const addTask = async () => {
     const newTask = task.trim();
     if (newTask === "") {
       setError("เห้ยย! ต้องใส่ข้อความก่อนดิ 😡 Bro");
       return;
     }
-    setTasks([...tasks, { id: Date.now(), text: newTask, done: false }]);
+    const newTaskData = { text: newTask, done: false };
+    const id = await db.tasks.add(newTaskData);
+    setTasks((currentTasks) => [...currentTasks, { id, ...newTaskData }]);
     setTask("");
     setError("");
   };
 
-  const toggleTask = (id) => {
+  const toggleTask = async (id) => {
+    const selectedTask = tasks.find((item) => item.id === id);
+    if (!selectedTask) return;
+
+    const newDone = !selectedTask.done;
+    await db.tasks.update(id, { done: newDone });
     setTasks(tasks.map((item) =>
-      item.id === id ? { ...item, done: !item.done } : item
+      item.id === id ? { ...item, done: newDone } : item
     ));
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await db.tasks.delete(id);
     setTasks(tasks.filter((item) => item.id !== id));
   };
 

@@ -2,6 +2,9 @@
 
 โปรเจกต์ Workshop สำหรับวิชา IG342 การพัฒนาแอปพลิเคชันบนอุปกรณ์เคลื่อนที่ 1
 
+- Week 5: React Router เชื่อมหน้า Home, My Task, Study Timer และ About
+- Week 7: My Task บันทึกข้อมูลแบบถาวรใน Browser ด้วย IndexedDB และ Dexie
+
 - ผู้จัดทำ: นายธัญพิสิษฐ์ ใจเสมอ
 - รหัสนักศึกษา: 66110619
 - เว็บไซต์: https://icebear120846.github.io/Deploy/
